@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Online_Exam_PortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" />
+          <Property Name="email_address" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Contents">
+          <Key>
+            <PropertyRef Name="content_id" />
+          </Key>
+          <Property Name="content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_name" Type="varchar" MaxLength="100" />
+          <Property Name="topic_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ExamQuestions">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_id" Type="int" />
+          <Property Name="topic_id" Type="int" />
+          <Property Name="question_text" Type="varchar(max)" />
+          <Property Name="option_1" Type="varchar(max)" />
+          <Property Name="option_2" Type="varchar(max)" />
+          <Property Name="option_3" Type="varchar(max)" />
+          <Property Name="option_4" Type="varchar(max)" />
+          <Property Name="correct_option_number" Type="int" />
+        </EntityType>
+        <EntityType Name="Exams">
+          <Key>
+            <PropertyRef Name="exam_id" />
+          </Key>
+          <Property Name="exam_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exam_name" Type="varchar" MaxLength="100" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="topic_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ExamSubmissions">
+          <Key>
+            <PropertyRef Name="submission_id" />
+          </Key>
+          <Property Name="submission_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exam_id" Type="int" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="question_id" Type="int" />
+          <Property Name="submitted_option_number" Type="int" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="100" />
+          <Property Name="username" Type="varchar" MaxLength="100" />
+          <Property Name="email_address" Type="varchar" MaxLength="50" />
+          <Property Name="mobile_number" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="char" MaxLength="1" />
+          <Property Name="birth_date" Type="date" />
+          <Property Name="city" Type="varchar" MaxLength="100" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="photo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Topics">
+          <Key>
+            <PropertyRef Name="topic_id" />
+          </Key>
+          <Property Name="topic_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="topic_name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Contents__topic___1920BF5C">
+          <End Role="Topics" Type="Self.Topics" Multiplicity="0..1" />
+          <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="Contents">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamQuest__conte__1BFD2C07">
+          <End Role="Contents" Type="Self.Contents" Multiplicity="0..1" />
+          <End Role="ExamQuestions" Type="Self.ExamQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="content_id" />
+            </Principal>
+            <Dependent Role="ExamQuestions">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamQuest__topic__1CF15040">
+          <End Role="Topics" Type="Self.Topics" Multiplicity="0..1" />
+          <End Role="ExamQuestions" Type="Self.ExamQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="ExamQuestions">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exams__topic_id__1FCDBCEB">
+          <End Role="Topics" Type="Self.Topics" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSubmi__exam___22AA2996">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="0..1" />
+          <End Role="ExamSubmissions" Type="Self.ExamSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="exam_id" />
+            </Principal>
+            <Dependent Role="ExamSubmissions">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSubmi__quest__24927208">
+          <End Role="ExamQuestions" Type="Self.ExamQuestions" Multiplicity="0..1" />
+          <End Role="ExamSubmissions" Type="Self.ExamSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamQuestions">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="ExamSubmissions">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSubmi__stude__239E4DCF">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="ExamSubmissions" Type="Self.ExamSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="ExamSubmissions">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Online_Exam_PortalModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamQuestions" EntityType="Self.ExamQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exams" EntityType="Self.Exams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamSubmissions" EntityType="Self.ExamSubmissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Contents__topic___1920BF5C" Association="Self.FK__Contents__topic___1920BF5C">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Contents" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamQuest__conte__1BFD2C07" Association="Self.FK__ExamQuest__conte__1BFD2C07">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamQuest__topic__1CF15040" Association="Self.FK__ExamQuest__topic__1CF15040">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exams__topic_id__1FCDBCEB" Association="Self.FK__Exams__topic_id__1FCDBCEB">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSubmi__exam___22AA2996" Association="Self.FK__ExamSubmi__exam___22AA2996">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="ExamSubmissions" EntitySet="ExamSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSubmi__quest__24927208" Association="Self.FK__ExamSubmi__quest__24927208">
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+            <End Role="ExamSubmissions" EntitySet="ExamSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSubmi__stude__239E4DCF" Association="Self.FK__ExamSubmi__stude__239E4DCF">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="ExamSubmissions" EntitySet="ExamSubmissions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Online_Exam_PortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="content_id" />
+          </Key>
+          <Property Name="content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="topic_id" Type="Int32" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK__Contents__topic___1920BF5C" FromRole="Contents" ToRole="Topics" />
+          <NavigationProperty Name="ExamQuestions" Relationship="Self.FK__ExamQuest__conte__1BFD2C07" FromRole="Contents" ToRole="ExamQuestions" />
+        </EntityType>
+        <EntityType Name="ExamQuestion">
+          <Key>
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="question_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_id" Type="Int32" />
+          <Property Name="topic_id" Type="Int32" />
+          <Property Name="question_text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option_3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="option_4" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="correct_option_number" Type="Int32" />
+          <NavigationProperty Name="Content" Relationship="Self.FK__ExamQuest__conte__1BFD2C07" FromRole="ExamQuestions" ToRole="Contents" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK__ExamQuest__topic__1CF15040" FromRole="ExamQuestions" ToRole="Topics" />
+          <NavigationProperty Name="ExamSubmissions" Relationship="Self.FK__ExamSubmi__quest__24927208" FromRole="ExamQuestions" ToRole="ExamSubmissions" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="exam_id" />
+          </Key>
+          <Property Name="exam_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exam_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="topic_id" Type="Int32" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK__Exams__topic_id__1FCDBCEB" FromRole="Exams" ToRole="Topics" />
+          <NavigationProperty Name="ExamSubmissions" Relationship="Self.FK__ExamSubmi__exam___22AA2996" FromRole="Exams" ToRole="ExamSubmissions" />
+        </EntityType>
+        <EntityType Name="ExamSubmission">
+          <Key>
+            <PropertyRef Name="submission_id" />
+          </Key>
+          <Property Name="submission_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exam_id" Type="Int32" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="question_id" Type="Int32" />
+          <Property Name="submitted_option_number" Type="Int32" />
+          <NavigationProperty Name="ExamQuestion" Relationship="Self.FK__ExamSubmi__quest__24927208" FromRole="ExamSubmissions" ToRole="ExamQuestions" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK__ExamSubmi__exam___22AA2996" FromRole="ExamSubmissions" ToRole="Exams" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__ExamSubmi__stude__239E4DCF" FromRole="ExamSubmissions" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="birth_date" Type="DateTime" Precision="0" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ExamSubmissions" Relationship="Self.FK__ExamSubmi__stude__239E4DCF" FromRole="Students" ToRole="ExamSubmissions" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="topic_id" />
+          </Key>
+          <Property Name="topic_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="topic_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contents" Relationship="Self.FK__Contents__topic___1920BF5C" FromRole="Topics" ToRole="Contents" />
+          <NavigationProperty Name="ExamQuestions" Relationship="Self.FK__ExamQuest__topic__1CF15040" FromRole="Topics" ToRole="ExamQuestions" />
+          <NavigationProperty Name="Exams" Relationship="Self.FK__Exams__topic_id__1FCDBCEB" FromRole="Topics" ToRole="Exams" />
+        </EntityType>
+        <Association Name="FK__Contents__topic___1920BF5C">
+          <End Role="Topics" Type="Self.Topic" Multiplicity="0..1" />
+          <End Role="Contents" Type="Self.Content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="Contents">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamQuest__conte__1BFD2C07">
+          <End Role="Contents" Type="Self.Content" Multiplicity="0..1" />
+          <End Role="ExamQuestions" Type="Self.ExamQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contents">
+              <PropertyRef Name="content_id" />
+            </Principal>
+            <Dependent Role="ExamQuestions">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamQuest__topic__1CF15040">
+          <End Role="Topics" Type="Self.Topic" Multiplicity="0..1" />
+          <End Role="ExamQuestions" Type="Self.ExamQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="ExamQuestions">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSubmi__quest__24927208">
+          <End Role="ExamQuestions" Type="Self.ExamQuestion" Multiplicity="0..1" />
+          <End Role="ExamSubmissions" Type="Self.ExamSubmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExamQuestions">
+              <PropertyRef Name="question_id" />
+            </Principal>
+            <Dependent Role="ExamSubmissions">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exams__topic_id__1FCDBCEB">
+          <End Role="Topics" Type="Self.Topic" Multiplicity="0..1" />
+          <End Role="Exams" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="topic_id" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSubmi__exam___22AA2996">
+          <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+          <End Role="ExamSubmissions" Type="Self.ExamSubmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="exam_id" />
+            </Principal>
+            <Dependent Role="ExamSubmissions">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExamSubmi__stude__239E4DCF">
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="ExamSubmissions" Type="Self.ExamSubmission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="ExamSubmissions">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Online_Exam_PortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Contents" EntityType="Self.Content" />
+          <EntitySet Name="ExamQuestions" EntityType="Self.ExamQuestion" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="ExamSubmissions" EntityType="Self.ExamSubmission" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Topics" EntityType="Self.Topic" />
+          <AssociationSet Name="FK__Contents__topic___1920BF5C" Association="Self.FK__Contents__topic___1920BF5C">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Contents" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamQuest__conte__1BFD2C07" Association="Self.FK__ExamQuest__conte__1BFD2C07">
+            <End Role="Contents" EntitySet="Contents" />
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamQuest__topic__1CF15040" Association="Self.FK__ExamQuest__topic__1CF15040">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSubmi__quest__24927208" Association="Self.FK__ExamSubmi__quest__24927208">
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+            <End Role="ExamSubmissions" EntitySet="ExamSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exams__topic_id__1FCDBCEB" Association="Self.FK__Exams__topic_id__1FCDBCEB">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSubmi__exam___22AA2996" Association="Self.FK__ExamSubmi__exam___22AA2996">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="ExamSubmissions" EntitySet="ExamSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExamSubmi__stude__239E4DCF" Association="Self.FK__ExamSubmi__stude__239E4DCF">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="ExamSubmissions" EntitySet="ExamSubmissions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Online_Exam_PortalModelStoreContainer" CdmEntityContainer="Online_Exam_PortalEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.Admin">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contents">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.Content">
+              <MappingFragment StoreEntitySet="Contents">
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="content_name" ColumnName="content_name" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamQuestions">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.ExamQuestion">
+              <MappingFragment StoreEntitySet="ExamQuestions">
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="question_text" ColumnName="question_text" />
+                <ScalarProperty Name="option_1" ColumnName="option_1" />
+                <ScalarProperty Name="option_2" ColumnName="option_2" />
+                <ScalarProperty Name="option_3" ColumnName="option_3" />
+                <ScalarProperty Name="option_4" ColumnName="option_4" />
+                <ScalarProperty Name="correct_option_number" ColumnName="correct_option_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.Exam">
+              <MappingFragment StoreEntitySet="Exams">
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="exam_name" ColumnName="exam_name" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamSubmissions">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.ExamSubmission">
+              <MappingFragment StoreEntitySet="ExamSubmissions">
+                <ScalarProperty Name="submission_id" ColumnName="submission_id" />
+                <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="submitted_option_number" ColumnName="submitted_option_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="mobile_number" ColumnName="mobile_number" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="Online_Exam_PortalModel.Topic">
+              <MappingFragment StoreEntitySet="Topics">
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="topic_name" ColumnName="topic_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

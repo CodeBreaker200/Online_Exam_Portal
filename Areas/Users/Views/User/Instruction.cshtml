@@ -1,0 +1,182 @@
+﻿@model Online_Exam_Portal.Models.Student
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Instruction</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container-fluid {
+            background-color: #007bff;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .card {
+            margin-top: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .luck {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .card-footer {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid rgba(0, 0, 0, 0.125);
+            text-align: center;
+        }
+
+        .btn-outline-warning {
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .form-control {
+            width: 200px;
+            margin: 0 auto; /* Center the text box */
+            margin-top: 10px; /* Adjust top margin as needed */
+        }
+
+        .btn-outline-primary {
+            width: 200px;
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#show").click(function () {
+                $("#dv").show(1000);
+            });
+        });
+
+
+        function startExam() {
+            var examCode = document.getElementById('examCodeInput').value;
+
+            if (examCode.trim() === '') {
+                alert('Please enter the exam code before starting the exam.');
+            } else {
+                document.getElementById('startExamForm').submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <h3>Instructions</h3>
+    </div>
+
+    <div class="alert alert-warning alert-dismissible fade show container-sm" role="alert">
+        <strong>Instructions!</strong> Read Instructions Carefully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <div style="display:none;" id="dv" class="alert alert-danger alert-dismissible fade show container-sm" role="alert">
+        <strong>Exam Code Sent To Registered Email Address!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Instructions</h2>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li> &#9193; Welcome to the online Exam for Programming Skills Test </li>
+                    <li> &#9193; The exam has a total of 10 Questions </li>
+                    <li> &#9193; Each Question carries 10 Marks</li>
+                    <li> &#9193; Total Time for the exam is 25 Minutes</li>
+                    <li> &#9193; Negative Marking: No </li>
+                </ul>
+                <div class="luck">
+                    <h3>Best of Luck for your Exam  &#128077;</h3>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                @using (Html.BeginForm("SendOTP", "User", FormMethod.Post, new { id = "show" }))
+                {
+                    <button class="btn btn-outline-warning" type="submit">Get Exam Code</button>
+                }
+
+                @using (Html.BeginForm("VerifyOTP", "User", FormMethod.Post, new { id = "startExamForm" }))
+                {
+                    @Html.TextBoxFor(e => e.Exam_Code, new { @class = "form-control", id = "examCodeInput" })
+
+                    <button class="btn btn-outline-primary" type="button" onclick="startExam()">Start Exam</button>
+                }
+                <div>
+                    @ViewBag.ms
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

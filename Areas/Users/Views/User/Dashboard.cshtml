@@ -1,0 +1,250 @@
+﻿@model Online_Exam_Portal.Models.Student
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Users/Views/Shared/DashboardLayout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f9f9fa;
+    }
+
+    .padding {
+        padding: 3rem !important
+    }
+
+    .user-card-full {
+        overflow: hidden;
+    }
+
+    .card {
+        border-radius: 5px;
+        -webkit-box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+        box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+        border: none;
+        margin-bottom: 30px;
+    }
+
+    .m-r-0 {
+        margin-right: 0px;
+    }
+
+    .m-l-0 {
+        margin-left: 0px;
+    }
+
+    .user-card-full .user-profile {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .bg-c-lite-green {
+        background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+        background: linear-gradient(to right, #ee5a6f, #f29263);
+    }
+
+    .user-profile {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-block {
+        padding: 1.25rem;
+    }
+
+    .m-b-25 {
+        margin-bottom: 25px;
+    }
+
+    .img-radius {
+        border-radius: 5px;
+    }
+
+
+
+    h6 {
+        font-size: 14px;
+    }
+
+    .card .card-block p {
+        line-height: 25px;
+    }
+
+    .card-block {
+        padding: 1.25rem;
+    }
+
+    .b-b-default {
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .m-b-20 {
+        margin-bottom: 20px;
+    }
+
+    .p-b-5 {
+        padding-bottom: 5px !important;
+    }
+
+    .card .card-block p {
+        line-height: 25px;
+    }
+
+    .m-b-10 {
+        margin-bottom: 10px;
+    }
+
+    .text-muted {
+        color: #919aa3 !important;
+    }
+
+    .b-b-default {
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .f-w-600 {
+        font-weight: 600;
+    }
+
+    .m-b-20 {
+        margin-bottom: 20px;
+    }
+
+    .m-t-40 {
+        margin-top: 20px;
+    }
+
+    .p-b-5 {
+        padding-bottom: 5px !important;
+    }
+
+    .m-b-10 {
+        margin-bottom: 10px;
+    }
+
+    .m-t-40 {
+        margin-top: 20px;
+    }
+
+    .user-card-full .social-link li {
+        display: inline-block;
+    }
+
+        .user-card-full .social-link li a {
+            font-size: 20px;
+            margin: 0 10px 0 0;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+    .c-3 {
+        width: 45vw;
+        height: 50vh;
+    }
+
+    .m-1 {
+        position: relative;
+        left: 12%;
+    }
+
+    .wrapper {
+        padding: 100px;
+        position: relative;
+        bottom: 80px;
+    }
+
+    .image--cover {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+    .profile a {
+        color: white;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+        .profile a:hover {
+            text-decoration: none;
+            transform: scale(1.2);
+        }
+</style>
+
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="m-1">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card-full c-3">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="wrapper">
+                                    <img src="~/Images/Profile.jpg" alt="" class="image--cover" />
+                                </div>
+                                <div class="profile" style="position:relative; bottom:10rem;">
+                                    <h6 class="f-w-600">@Model.full_name</h6>
+                                    <p>Web Designer</p>
+
+                                    <a href="@Url.Action("Edit", "User", new { id = Model.student_id })">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                                            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l-.074.136c-.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                                        </svg>
+                                        <span style="font-size: 20px;">Edit</span>
+                                    </a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600 text-center" style="font-size:1.5rem;">Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Name</p>
+                                        <h6 class="text-muted f-w-400">@Model.full_name</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Phone</p>
+                                        <h6 class="text-muted f-w-400">@Model.mobile_number</h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Email Address</p>
+                                        <h6 class="text-muted f-w-400">@Model.email_address</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">BirthDate</p>
+                                        <h6 class="text-muted f-w-400">@Model.birth_date</h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600"></h6>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="m-b-10 f-w-600">City</p>
+                                        <h6 class="text-muted f-w-400">@Model.city</h6>
+                                    </div>
+                                </div>
+
+                                <ul class="social-link list-unstyled m-t-40 m-b-10">
+                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

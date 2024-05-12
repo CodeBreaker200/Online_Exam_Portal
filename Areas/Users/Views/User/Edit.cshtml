@@ -1,0 +1,66 @@
+﻿@model Online_Exam_Portal.Models.Student
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Users/Views/Shared/DashboardLayout.cshtml";
+}
+
+<!-- Button trigger modal -->
+<div class="text-center">
+    <button type="button" class="btn btn-primary  mt-3" data-toggle="modal" data-target="#exampleModal">
+        Edit Student Data
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Student Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "student-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-body">
+                    <div class="card mx-auto">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                @Html.TextBoxFor(e => e.full_name, new { @class = "form-control", id = "fullName" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                @Html.TextBoxFor(e => e.mobile_number, new { @class = "form-control", id = "phoneNumber" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailAddress">Email Address</label>
+                                @Html.TextBoxFor(e => e.email_address, new { @class = "form-control", id = "emailAddress" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birthDate">Birth Date</label>
+                                @Html.TextBoxFor(e => e.birth_date, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "birthDate", type = "date" })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                @Html.TextBoxFor(e => e.city, new { @class = "form-control", id = "city" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

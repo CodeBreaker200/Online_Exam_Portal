@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="73b8f6311cef4842814d654d13ae221f" Name="Diagram1">
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.Admin" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.Content" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.ExamQuestion" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.Exam" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.ExamSubmission" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.Student" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_Exam_PortalModel.Topic" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__Contents__topic___1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__ExamQuest__conte__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__ExamQuest__topic__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__ExamSubmi__quest__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__Exams__topic_id__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__ExamSubmi__exam___22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_Exam_PortalModel.FK__ExamSubmi__stude__239E4DCF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

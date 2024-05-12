@@ -1,0 +1,284 @@
+﻿@model IEnumerable<Online_Exam_Portal.Models.Content>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&family=DM+Serif+Display:ital@0;1&family=Gloock&family=Nosifer&family=Noto+Sans+Kawi&family=Noto+Sans+TC:wght@500&family=Noto+Sans:wght@500&family=Open+Sans:wght@300;400;500;600&family=Poppins:wght@200&family=Raleway:wght@100;200;300;400&family=Roboto:wght@400;700&display=swap"
+          rel="stylesheet">
+    @*css*@
+    <link href="~/Content/StyleSheet2.css" rel="stylesheet" />
+
+
+    <style>
+        .modal-body ul {
+            display: flex;
+            color: black;
+        }
+
+            .modal-body ul li a {
+                text-decoration: none; /* Remove default underline */
+                color: black; /* Set the initial text color */
+                font-family: 'Baloo Bhai 2', sans-serif;
+            }
+
+                .modal-body ul li a:hover {
+                    color: blue; /* Change the text color on hover to blue */
+                    text-decoration: none; /* Add underline on hover */
+                }
+    </style>
+</head>
+<body>
+    <nav class="cont">
+        <div class="logo-section">
+            <img class="logo" src="~/Images/mainlogo.png" alt="logo">
+        </div>
+        <img class="hamburger" src="~/Images/hamburger.png" alt="hamburger">
+        <ul class="nav-list">
+
+            <li>
+                <a href="#">Premium Service</a>
+            </li>
+            <li>
+                @Html.ActionLink("Logout", "logout", "User")
+            </li>
+            <li>
+                Welcome, Mr, @ViewBag.Username
+            </li>
+            <a href="User/Dashboard">
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                </svg>
+            </li>
+            </a>
+        </ul>
+    </nav>
+
+    @*Main*@
+    <main>
+        <div class="hero">
+            <div class="hero__text-block">
+                <h1 style="color: black;">
+                    Skills are the <span style="color: orange;">catalyst</span><span>
+                        to
+                        your
+                    </span><span style="color: orange;"> career growth</span>
+                </h1>
+                <h3 style="color: black;">Assess your skills and stand out to recruiters</h3>
+
+            </div>
+            <div class="img-block">
+                <img src="~/Images/screen skill.png" alt="room">
+            </div>
+        </div>
+
+        <section class="apartments">
+            <div class="container-fluid">
+                <div class="h-4">
+                    <h4>What's in it for me?</h4>
+                </div>
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Assess your skills</h4>
+                            <p>Receive a standardised skill report recognised by top hiring companies</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Stand out to recruiters</h4>
+                            <p>Showcase your talent to recruiters with performance-based badges</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Unlock exclusive benefits</h4>
+                            <p>Get a dedicated talent manager, career boost resources & more!</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h4 class="h-4">Assessment Categories</h4>
+                <div class="row">
+
+                    <div>
+                        <div class="card  mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Full Stack Developer Test</h5>
+                                <div class="card-text">
+                                    <p>10000+ tests taken </p>
+
+
+                                    @*Back End Button*@
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        <!-- Back End Buttons -->
+                                <div>
+                                    @foreach (var topic in Model.Select(c => c.Topic).Distinct())
+                                    {
+                                        <button type="button" class="btn btn-outline-primary d-inline-block mt-1" data-toggle="modal" data-target="#exampleModal_@topic.topic_id">
+                                            @topic.topic_name
+                                        </button>
+
+                                    }
+                                </div>
+
+                                        <!-- Modals -->
+                                        foreach (var topic in Model.Select(c => c.Topic).Distinct())
+                                        {
+                                            <div class="modal fade" id="exampleModal_@topic.topic_id" tabindex="-1" role="dialog" aria-labelledby="examp    leModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">@topic.topic_name</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul class="list-group">
+                                                                @foreach (var content in Model.Where(c => c.topic_id == topic.topic_id))
+                                                                {
+                                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                        @content.content_name
+                                                                        <a href="@Url.Action("Instruction", "User", new { id = content.content_id })" class="btn btn-sm btn-primary">Get Exam</a>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No contents available.</p>
+                                    }
+                                    <a href="#" class="link link-primary" style="text-decoration:none">
+                                        View More <span class="bi-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Database Developer Test</h5>
+                                <div class="card-text">
+                                    <p>10000+ tests taken </p>
+                                    <span class="btn btn-outline-primary">Sql</span>
+                                    <span class="btn btn-outline-primary">PlSql</span>
+                                    <span class="btn btn-outline-primary">NoSql</span>
+                                    <a href="#" class="link link-primary" style="text-decoration:none">
+                                        View More <span class="bi-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="card   mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Software Testing Test</h5>
+                                <div class="card-text">
+                                    <p>9000+ tests taken </p>
+                                    <span class="btn btn-outline-primary">Manual </span>
+                                    <span class="btn btn-outline-primary">Automation </span>
+                                    <span class="btn btn-outline-primary">ETL </span>
+                                    <a href="#" class="link link-primary" style="text-decoration:none">
+                                        View More <span class="bi-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="card   mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Analytics Test</h5>
+                                <div class="card-text">
+                                    <p>10000+ tests taken </p>
+                                    <span class="btn btn-outline-primary">Sql </span>
+                                    <span class="btn btn-outline-primary">Python/R </span>
+                                    <span class="btn btn-outline-primary">PowerBI</span>
+                                    <a href="#" class="link link-primary" style="text-decoration:none">
+                                        View More <span class="bi-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="card  mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Front End Developer</h5>
+                                <div class="card-text">
+                                    <p>10000+ tests taken </p>
+                                    <span class="btn btn-outline-primary">Javascript </span>
+                                    <span class="btn btn-outline-primary">Angular </span>
+                                    <span class="btn btn-outline-primary">React</span>
+                                    <a href="#" class="link link-primary" style="text-decoration:none">
+                                        View More <span class="bi-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="card  mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Common Language Test</h5>
+                                <div class="card-text">
+                                    <p>9000+ tests taken </p>
+                                    <span class="btn btn-outline-primary">C </span>
+                                    <span class="btn btn-outline-primary">CPP</span>
+                                    <span class="btn btn-outline-primary">DS </span>
+                                    <a href="#" class="link link-primary" style="text-decoration:none">
+                                        View More <span class="bi-arrow-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    @*Footer*@
+    <footer class="footer ">
+        <a href="">© 2023 - CIIT</a>
+    </footer>
+
+
+    @*JS*@
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
